@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container text-center">
+        <h1>Create Todo</h1>
+        <a href="{{ url_for('index') }}" class="create-button">Home</a>
+
+<!--        <form id="todo-form">-->
+<!--            <input type="text" id="todo-input" placeholder="Enter your todo here" required>-->
+<!--            <button type="submit" class="create-todo-btn">Add Todo</button>-->
+<!--        </form>-->
+
+        <form action="" method="POST" novalidate id="todo-form">
+            {{ form.hidden_tag() }}
+
+            {{ form.todo() }}
+            {{ form.add_todo(class="create-todo-btn") }}
+        </form>
+
+    </div>
+
+
+
+
+{% endblock %}

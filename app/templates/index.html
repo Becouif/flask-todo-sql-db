@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container text-center">
+        <h1>Todo List</h1>
+        <a href="{{ url_for('create') }}" class="create-button">Create Todo</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Todo</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="todo-list">
+            {% if todos %}
+            {% for todo in todos %}
+            <tr>
+<!--      i have to use index to select them from db-->
+                <td>{{todo[0]}}</td> <!-- id -->
+                <td>{{todo[1]}}</td> <!-- todo itself -->
+                <td>
+                    <a href="{{url_for('edit', id=todo[0])}}" class="create-button">edit</a>
+<!--                    <a href="" class="create-todo-btn">delete</a>-->
+                    <form action="{{url_for('delete', id=todo[0])}}" method="post" style="display:inline">
+                        {{form.hidden_tag()}}
+                        <button class="create-todo-btn">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <td>-</td>
+            <td>No todo created yet, try creating todo</td>
+            <td>-</td>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+  body {
+            background-color: #222222;
+            color: #ffcc00;
+            font-family: "Courier New", Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 600px;
+            background: #333333;
+            padding: 2rem;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+            border: 3px solid #ffcc00;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #ffcc00;
+            text-shadow: 0px 0px 5px #ffffff;
+        }
+        .create-button {
+            background: #ff6600;
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.5);
+            text-decoration:none;
+        }
+        table {
+            width: 100%;
+            margin-top: 1rem;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ffcc00;
+            padding: 0.5rem;
+            text-align: left;
+        }
+        th {
+            background-color: #ff6600;
+            color: #ffffff;
+        }
+        tr:nth-child(even) {
+            background-color: #444444;
+        }
+/* start of create design */
+         input[type="text"] {
+            margin-top: 1rem;
+            background: #222;
+            color: #ffcc00;
+            padding: 0.5rem;
+            width: 100%;
+            border: 2px solid #ffcc00;
+            box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.5);
+            font-family: "Courier New", Courier, monospace;
+        }
+        input[type="text"]::placeholder {
+            color: #ffcc00;
+            opacity: 0.8;
+        }
+        .create-todo-btn {
+            background: #ff6600;
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            border: none;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.5);
+            transition: background 0.3s ease;
+        }
+        .create-todo-btn:hover {
+            background: #ff3300;
+        }
