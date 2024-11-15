@@ -7,6 +7,9 @@
     <link href="{{ url_for('static', filename='input.css') }}" rel="stylesheet">
 </head>
 <body>
+ {% if error %}
+    <div style="color:red;">{{error}}</div>
+ {% endif %}
     {% block content %}{% endblock %}
 </body>
 </html>

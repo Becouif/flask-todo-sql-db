@@ -18,41 +18,56 @@ def getdb_connection():
 @app.route('/')
 @app.route('/index')
 def index():
-    # get form
-    form = TodoForm()
+    try:
+        # get form
+        form = TodoForm()
     # create db connection
-    cnx = getdb_connection()
-    cursor = cnx.cursor()
-    cursor.execute("SELECT * FROM todo")
-    todos = cursor.fetchall()
-    cursor.close()
-    cnx.close()
-    print(todos)
-    return render_template('index.html',title='Todo List', todos=todos, form=form)
+        cnx = getdb_connection()
+        cursor = cnx.cursor()
+        cursor.execute("SELECT * FROM todo")
+        todos = cursor.fetchall()
+        if cursor:
+            cursor.close()
+        if cnx:
+            cnx.close()
+        return render_template('index.html', title='Todo List', todos=todos, form=form)
+    except Exception as err:
+        todos = []
+        form = []
+        error_message = "Failed to get todo from database, please try again later"
+        # print(f"An error occurred: {e}")
+
+        return render_template('index.html',title='Todo List', todos=todos, form=form, error=error_message)
 
 
 @app.route('/create', methods=['GET', 'POST'])
 def create():
-    form = TodoForm()
-    # submit form
-    if form.validate_on_submit():
-        # take data from and store as varaible
-        todo = form.todo.data
-        # connect to db
-        cnx = getdb_connection()
-        cursor = cnx.cursor()
-        # ATTENTION!!!!
-        # i should exclude id since it autoincrement in db
-        # i need to send as tuple or list so i must write it as tuple
-        # (todo,) make it a tuple
-        # finally if i dont use small letter %s it will not work
+    try:
+        form = TodoForm()
+        # submit form
+        if form.validate_on_submit():
+            # take data from and store as variable
+            todo = form.todo.data
+            # connect to db
+            cnx = getdb_connection()
+            if cnx:
+                cursor = cnx.cursor()
+                # ATTENTION!!!!
+                # i should exclude id since it autoincrement in db
+                # i need to send as tuple or list so i must write it as tuple
+                # (todo,) make it a tuple
+                # finally if i dont use small letter %s it will not work
 
-        cursor.execute("INSERT INTO todo (Todo) VALUES(%s)", (todo,))
+                cursor.execute("INSERT INTO todo (Todo) VALUES(%s)", (todo,))
 
-        cnx.commit()
-        cursor.close()
-        cnx.close()
-        return redirect(url_for('index'))
+                cnx.commit()
+                if cursor:
+                    cursor.close()
+                    cnx.close()
+                    return redirect(url_for('index'))
+    except Exception as err:
+        error_message =f"could not create todo now, try again later - {err}"
+        return render_template('create.html', title='create',error=error_message)
 
 
     return render_template('create.html', title='Create Todo', form=form)
